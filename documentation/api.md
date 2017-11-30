@@ -11,6 +11,7 @@ __IN PROGRESS__
     "content": {
       "header": "# lorem",  
       "body": "## Ipsum",
+      "creation_date": "11.11.2017",
       "tags": ["first_post", "programming"]
     }
   }
@@ -32,5 +33,5 @@ __IN PROGRESS__
 ```
 
 - __Response:__
-  - _If admin:_ `{success: true}`
+  - _If authenticated:_ `{success: true}`
   - _Else:_ `{success: false}`
