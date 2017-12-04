@@ -1,1 +1,2 @@
-console.log('Hey guys and ladies!!')
+import React from "react"
+import { render } from "react-dom"
