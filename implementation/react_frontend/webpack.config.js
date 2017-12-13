@@ -13,9 +13,28 @@ var config = {
   module : {
     loaders : [
       {
-        test : /\.jsx?/,
-        include : APP_DIR,
-        loader : 'babel-loader'
+        test: /\.js$/,
+        loader: "babel-loader",
+        include: APP_DIR,
+        exclude: /node_modules/
+      },
+      {
+        test: /\.s?css$/,
+        use:  [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: [
+                autoprefixer(),
+                cssnano()
+              ]
+            }
+          }
+        ]
       }
     ]
   }

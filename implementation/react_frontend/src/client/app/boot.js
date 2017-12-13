@@ -1,10 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
+import App from './App.js'
 
-class App extends React.Component {
-  render () {
-    return <p> Hello React project</p>;
-  }
-}
-
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('react_main_container'))
