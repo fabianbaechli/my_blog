@@ -1,9 +1,25 @@
 @import "main.scss";
 
 .Header {
-  font-family: 'Futura LT';
-  font-size: 40px;
+  font-family: 'PingFang HK Light';
+  font-style: oblique;
+  font-size: 44px;
   margin: 0;
   padding: 0;
   height: 180px;
+  text-align: center;
+  background-color: #34495e;
+}
+
+#header_content {
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 40px;
+  color: white;
+}
+
+#header_content:hover {
+  transition-duration: 0.02s;
+  transform: scale(1.02);
+  cursor: pointer;
 }
