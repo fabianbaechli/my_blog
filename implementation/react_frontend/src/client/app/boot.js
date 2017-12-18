@@ -1,6 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './MainViewController.js'
+import { MainViewController } from './MainViewController.js'
 import style from "../style/main.scss"
+import { BrowserRouter } from 'react-router-dom'
 
-render(<App/>, document.getElementById('react_main_container'))
+render((
+  <BrowserRouter>
+    <MainViewController />
+  </BrowserRouter>
+), document.getElementById('react_main_container'))
