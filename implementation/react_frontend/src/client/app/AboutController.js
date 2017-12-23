@@ -2,16 +2,16 @@ import React from 'react'
 
 import c from '../model/Constants.js'
 import DataSource from '../model/DataSource.js'
-import style from "../style/MainViewController.scss"
+import style from "../style/BlogController.scss"
 
 import Header from "./Header.js"
-import MainBody from "./MainBody.js"
+import Bar from './Bar.js'
 
-export const MainViewController = () => (
-  <div className="MainViewController">
+export const BlogController = () => (
+  <div className="AboutController">
     <Header
       header_content = "Fabian Bächli - My Blog"
     />
-    <MainBody />
+    <Bar />
   </div>
 )

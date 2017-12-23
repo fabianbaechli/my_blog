@@ -10,7 +10,7 @@ export default class Bar extends React.Component {
   render() {
     return (
       <div>
-        <h1>Foobar</h1>
+        <h1>Bar</h1>
       </div>
     )
   }
