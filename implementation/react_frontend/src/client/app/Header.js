@@ -10,8 +10,12 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <div className="Header">
+      <div id="header">
         <a href="/" id="header_content">{this.props.header_content}</a>
+        <div id="sub_content_bar">
+          <a className="sub_content" href="/">Blog</a>
+          <a className="sub_content" href="/about">About</a>
+        </div>
       </div>
     )
   }

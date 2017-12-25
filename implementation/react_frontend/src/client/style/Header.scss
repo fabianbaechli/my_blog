@@ -1,6 +1,6 @@
 @import "main.scss";
 
-.Header {
+#header {
   font-family: 'Roboto';
   font-weight: lighter;
   font-size: 44px;
@@ -12,13 +12,26 @@
 }
 
 #header_content {
-  text-decoration: none;
   display: inline-block;
   margin-top: 40px;
+
+}
+
+#sub_content_bar {
+  margin-top: 10px;
+}
+
+#sub_content_bar .sub_content {
+  margin: 20px;
+  font-size: 25px;
+}
+
+a {
+  text-decoration: none;
   color: white;
 }
 
-#header_content:hover {
+a:hover {
   transition-duration: 0.02s;
   transform: scale(1.02);
   cursor: pointer;
