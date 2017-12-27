@@ -15,6 +15,7 @@ export default class Header extends React.Component {
         <div id="sub_content_bar">
           <a className="sub_content" href="/">Blog</a>
           <a className="sub_content" href="/about">About</a>
+          <a className="sub_content" href="/admin">Admin</a>
         </div>
       </div>
     )

@@ -1,20 +1,18 @@
 @import "main.scss";
 
 #header {
-  font-family: 'Roboto';
-  font-weight: lighter;
   font-size: 44px;
   margin: 0;
   padding: 0;
   height: 180px;
   text-align: center;
-  background-color: #34495e;
+  background-color: #9C27B0;
 }
 
 #header_content {
   display: inline-block;
   margin-top: 40px;
-
+  color: white;
 }
 
 #sub_content_bar {
@@ -24,11 +22,11 @@
 #sub_content_bar .sub_content {
   margin: 15px;
   font-size: 25px;
+  color: white;
 }
 
 a {
   text-decoration: none;
-  color: white;
 }
 
 a:hover {

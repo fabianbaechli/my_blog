@@ -2,15 +2,15 @@
 
 #content_container {
   width: 60%;
-  height: 100%;
   margin-right: 20%;
   margin-left: 20%;
   margin-top: 20px;
 }
 
 .content {
+  list-style-position: inside;
   border-radius: 5px;
-  background-color: grey;
+  background-color: #E0E0E0;
   width: 100%;
   margin-bottom: 10px;
   padding: 20px;
