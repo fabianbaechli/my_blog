@@ -14,7 +14,13 @@ export const BlogController = () => (
       header_content = "Fabian Bächli - My Blog"
     />
     <ContentContainer>
-      <h1>Hello World</h1>
+      <div className = "content">
+        <h1>Hello World</h1>
+        <p>This is my first entry</p>
+      </div>
+      <div className = "content">
+        <h1>Hello World</h1>
+      </div>
     </ContentContainer>
   </div>
 )
