@@ -2,3 +2,4 @@
 node_modules/
 npm-debug.log
 /implementation/react_frontend/src/client/public/bundle.js
+database.js
