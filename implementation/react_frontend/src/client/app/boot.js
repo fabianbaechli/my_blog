@@ -9,7 +9,7 @@ render((
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component={BlogController}/>
-      <Route path='/about' component={AboutController}/>
+      <Route exact path='/about' component={AboutController}/>
     </Switch>
   </BrowserRouter>
 ), document.getElementById('react_main_container'))
