@@ -1,21 +1,31 @@
 const express    = require('express')
+const app        = express()
 const session    = require('express-session')
 const bodyParser = require('body-parser')
 const mysql      = require('mysql')
 const hash       = require('sha256')
 // const connection = require('odbc')(), cn = "DSN=myodbc"
-const connection = require('odbc')(),
-  cn = "DRIVER={libdevartodbcmysql.x64.dylib};SERVER=localhost;UID=root;PWD=root;DATABASE=my_blog";
-const app        = express()
+const connection = mysql.createConnection({
+  host: "localhost",
+  port: "3306",
+  user: "root",
+  password: "root",
+  database: "my_blog"
+})
 
+app.use(express.static('./react_frontend/src/client/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
+/*
 connection.open(cn, function (err) {
   if (err) return console.log(err);
 });
+*/
+connection.connect((err) => {
+  if (err) throw err
+})
 
 app.use(session({
   secret: "f9aa079ea7d98f622427314ae5d07bb43bb343b34cf9365a7",
@@ -28,8 +38,6 @@ app.use(session({
 }));
 
 app.get("/", (req, res) => {
-  authenticate("fabian", "abc123", (rows) => {
-  })
 })
 
 app.get("/authenticated", (req, res) => {
@@ -42,6 +50,14 @@ app.get("/authenticated", (req, res) => {
 
 app.post("/authenticate", (req, res) => {
   if (!req.session.authenticated) {
+    console.log(req)
+    authenticate(req.body.username, req.body.password, (rows) => {
+      if (rows[0].length > 0) {
+        res.json({authenticated: true})
+      } else {
+        res.json({authenticated: false})
+      }
+    })
   } else {
     res.json({authenticated: true})
   }
@@ -55,7 +71,6 @@ function authenticate(username, password, callback) {
   })
 }
 
-app.use(express.static('./react_frontend/src/client/public'));
 app.listen(8080, () => {
   console.log("Server listening on port 8080")
 })

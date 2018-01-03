@@ -5,13 +5,12 @@ import DataSource from '../model/DataSource.js'
 import style from "../style/BlogController.scss"
 
 import Header from "./Header.js"
-import Foo from './Foo.js'
 import ContentContainer from './ContentContainer'
 
 export const BlogController = () => (
   <div className="BlogController">
     <Header
-      header_content = "Fabian Bächli - My Blog"
+      header_content = "My Blog"
     />
     <ContentContainer>
       <div className = "content">
