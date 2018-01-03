@@ -11,6 +11,8 @@ export const AdminController = () => (
   <div className="BlogController">
     <Header
       header_content="Admin"
+      underline_element = {2}
+      hr_width = {76.05}
     />
     <ContentContainer>
       <div className="content">

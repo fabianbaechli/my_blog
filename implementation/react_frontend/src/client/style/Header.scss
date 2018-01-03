@@ -28,7 +28,6 @@
 #sub_content_bar .sub_content:hover {
   transition-duration: 0.02s;
   transform: scale(1.02);
-  cursor: pointer;
 }
 
 a {
@@ -39,4 +38,27 @@ a:hover {
   transition-duration: 0.02s;
   transform: scale(1.02);
   cursor: pointer;
+}
+
+.one:hover ~ hr {
+  margin-left: 274px;
+  width: 51.31px;
+}
+
+.two:hover ~ hr {
+  margin-left: 355px;
+  width: 70.41px;
+}
+
+.three:hover ~ hr {
+  margin-left: 455.5px;
+  width: 76.05px;
+}
+
+hr {
+  height: .25rem;
+  margin: 0;
+  background: tomato;
+  border: none;
+  transition: .3s ease-in-out;
 }
