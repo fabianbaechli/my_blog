@@ -10,6 +10,7 @@ let margin, width
 export default class SubheaderSlider extends React.Component {
   constructor(props) {
     super(props)
+    this.setMargin = debounce(100, this.setMargin)
   }
 
   setMargin() {
@@ -19,11 +20,11 @@ export default class SubheaderSlider extends React.Component {
 
   componentDidMount() {
     this.setMargin()
-    window.addEventListener("resize", debounce(150, this.setMargin).bind(this))
+    window.addEventListener("resize", this.setMargin.bind(this))
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", debounce(150, this.setMargin).bind(this))
+    window.removeEventListener("resize", this.setMargin.bind(this))
   }
 
   render() {
