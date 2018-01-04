@@ -10,9 +10,8 @@ export const AboutController = () => (
   <div className="AboutController">
     <Header
       header_content = "About"
-      underline_element = {1}
+      underline_element = {"one"}
       hr_width = {70.41}
-
     />
     <a>About</a>
   </div>
