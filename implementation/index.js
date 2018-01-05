@@ -58,16 +58,15 @@ app.get("/authenticated", (req, res) => {
 
 app.post("/authenticate", (req, res) => {
   if (!req.session.authenticated) {
-    console.log(req)
     authenticate(req.body.username, req.body.password, (rows) => {
       if (rows[0].length > 0) {
-        res.json({authenticated: true})
+        res.json({success: true})
       } else {
-        res.json({authenticated: false})
+        res.json({success: false})
       }
     })
   } else {
-    res.json({authenticated: true})
+    res.json({success: true})
   }
 })
 

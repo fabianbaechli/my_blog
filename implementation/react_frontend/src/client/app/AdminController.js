@@ -1,7 +1,7 @@
 import React from 'react'
 
 import c from '../model/Constants.js'
-import DataSource from '../model/DataSource.js'
+import { authenticate } from '../model/DataSource.js'
 import style from "../style/AdminController.scss"
 
 import Header from "./Header"
@@ -9,7 +9,6 @@ import ContentContainer from './ContentContainer'
 
 export default class AdminController extends React.Component {
   constructor(props) {
-    console.log("hello world")
     super(props)
     this.state = {username: '', password: ''}
 
@@ -19,12 +18,17 @@ export default class AdminController extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state.username + " " + this.state.password)
-    // Do the post request here
+    authenticate(this.state.username, this.state.password, (response) => {
+      console.log(response)
+    })
   }
 
   handleChange(event) {
-    console.log(event)
+    if (event.target.name === "username") {
+      this.setState({username: event.target.value})
+    } else {
+      this.setState({password: event.target.value})
+    }
   }
 
   render() {
@@ -37,12 +41,24 @@ export default class AdminController extends React.Component {
         />
         <ContentContainer>
           <div className="content">
-            <form action="/authenticate">
+            <form onSubmit={this.handleSubmit}>
               <div className="field">
-                <input placeholder="Username" type="text" name="name" />
+                <input
+                  placeholder="Username"
+                  type="text"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
               </div>
               <div className="field">
-                <input placeholder="Password" type="password" name="name" />
+                <input
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
               </div>
               <br/>
               <input type="submit" value="Submit" />

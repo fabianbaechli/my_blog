@@ -1,15 +1,20 @@
-import {backend_get, backend_post} from './Utils.js'
-import c from './Constants'
+import { backend_get, backend_post } from './Utils.js'
+import c from './Constants.js'
 
-export default class DataSource {
-  getEntries(callback) {
-    backend_get(c.backendURL + "/entries", (response) => {
-      // TODO: Do the parsing to HTML here
-    })
-  }
-  changeEntry(entryId, changes, callback) {
-    backend_post(c.backendURL, {entry_id: entryId, entries_to_change : changes}, (response) => {
-      callback(response.success)
-    })
-  }
+export const getEntries = (callback) => {
+  backend_get(c.backendURL + "/entries", (response) => {
+    // TODO: Do the parsing to HTML here
+  })
+}
+
+export const changeEntry = (entryId, changes, callback) => {
+  backend_post(c.backendURL, {entry_id: entryId, entries_to_change : changes}, (response) => {
+    callback(response.success)
+  })
+}
+
+export const authenticate = (username, password, callback) => {
+  backend_post("authenticate", {"username": username, "password": password}, (response) => {
+    callback(response.success)
+  })
 }
