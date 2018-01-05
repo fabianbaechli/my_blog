@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-import { BlogController } from './BlogController.js'
-import { AboutController } from './AboutController.js'
-import { AdminController } from './AdminController.js'
+import BlogController from './BlogController'
+import AboutController from './AboutController'
+import AdminController from './AdminController'
 import style from '../style/main.scss'
 import { BrowserRouter, Switch, Route } from  'react-router-dom'
 

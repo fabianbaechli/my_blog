@@ -12,7 +12,6 @@ form {
 
 input[type='text'], input[type='password'] {
   width: 80%;
-  height: 30px;
   font-size: 15px;
   padding: 4px;
   border: 2px solid #9C27B0;
@@ -26,6 +25,10 @@ input[type='submit'] {
   outline: none;
   background-color: #9C27B0;
   border: 2px solid #9C27B0;
+  border-radius: 5px;
+  width: 80%;
+  padding: 4px;
+  font-size: 15px;
 }
 
 .field {

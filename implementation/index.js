@@ -40,6 +40,14 @@ app.use(session({
 app.get("/", (req, res) => {
 })
 
+app.get("/about", (req, res) => {
+  res.redirect("/")
+})
+
+app.get("/admin", (req, res) => {
+  res.redirect("/")
+})
+
 app.get("/authenticated", (req, res) => {
   if (req.session.authenticated) {
     res.json({authenticated: true})

@@ -5,7 +5,7 @@ import { debounce } from 'throttle-debounce'
 import c from '../model/Constants.js'
 import style from "../style/Header.scss"
 
-let margin, width
+let margin
 
 export default class SubheaderSlider extends React.Component {
   constructor(props) {
@@ -28,9 +28,8 @@ export default class SubheaderSlider extends React.Component {
   }
 
   render() {
-    let width = this.props.hr_width
     return (
-      <hr style={{width: width + 'px', marginLeft: margin + 'px'}}/>
+      <hr style={{width: this.props.hr_width + 'px', marginLeft: margin + 'px'}}/>
     )
   }
 }
