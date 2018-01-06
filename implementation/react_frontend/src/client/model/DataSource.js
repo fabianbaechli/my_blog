@@ -20,7 +20,7 @@ export const authenticate = (username, password, callback) => {
 }
 
 export const checkAuthentication = (callback) => {
-  backend_get(c.backendURL + "authenticated", (response) => {
+  backend_get("authenticated", (response) => {
     callback(response)
   })
 }

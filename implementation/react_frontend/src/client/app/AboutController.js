@@ -11,6 +11,7 @@ export default class AboutController extends React.Component {
     super(props)
   }
   render() {
+    console.log(this.props.authenticated)
     return (
       <div className="AboutController">
         <Header

@@ -11,15 +11,32 @@ import { BrowserRouter, Switch, Route } from  'react-router-dom'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {authenticated: false}
+  }
+
+  componentDidMount() {
+    checkAuthentication((response) => {
+      this.setState({authenticated: response.authenticated})
+    })
+  }
+
+  handleAuthenticationChange(change) {
+    this.setState({authenticated: change})
   }
 
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={BlogController}/>
-          <Route exact path='/about' component={AboutController}/>
-          <Route exact path='/admin' component={AdminController}/>
+          <Route exact path="/" render={() => <BlogController authenticated={this.state.authenticated}/>}/>
+          <Route exact path="/about" render={() => <AboutController authenticated={this.state.authenticated}/>}/>
+          <Route
+            exact path="/admin"
+            render = {() => <AdminController
+                authenticated={this.state.authenticated}
+                call_authenticated_change={this.handleChange}
+            />}
+          />
         </Switch>
       </BrowserRouter>
     )
