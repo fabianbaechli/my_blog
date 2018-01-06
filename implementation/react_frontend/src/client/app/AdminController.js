@@ -19,6 +19,7 @@ export default class AdminController extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     authenticate(this.state.username, this.state.password, (response) => {
+      console.log(response)
       if (response !== this.props.authenticated) {
         this.props.call_authenticated_change(response)
       }
@@ -40,7 +41,6 @@ export default class AdminController extends React.Component {
     } else {
       header = "not authenticated!"
     }
-    console.log(this.props.authenticated)
     return (
       <div className="BlogController">
         <Header

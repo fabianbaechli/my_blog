@@ -12,6 +12,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {authenticated: false}
+    this.handleAuthenticationChange = this.handleAuthenticationChange.bind(this)
   }
 
   componentDidMount() {
@@ -34,7 +35,7 @@ export default class App extends React.Component {
             exact path="/admin"
             render = {() => <AdminController
                 authenticated={this.state.authenticated}
-                call_authenticated_change={this.handleChange}
+                call_authenticated_change={this.handleAuthenticationChange}
             />}
           />
         </Switch>

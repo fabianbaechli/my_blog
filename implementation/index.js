@@ -60,6 +60,7 @@ app.post("/authenticate", (req, res) => {
   if (!req.session.authenticated) {
     authenticate(req.body.username, req.body.password, (rows) => {
       if (rows[0].length > 0) {
+        req.session.authenticated = true
         res.json({success: true})
       } else {
         res.json({success: false})
