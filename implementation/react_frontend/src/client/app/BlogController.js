@@ -13,6 +13,7 @@ export default class BlogController extends React.Component {
   }
 
   render() {
+    console.log(this.props.show_overlay)
     return (
       <div className="BlogController">
         <Header
@@ -34,6 +35,10 @@ export default class BlogController extends React.Component {
             </code></pre>
           </div>
         </ContentContainer>
+        {this.props.children}
+        <div id="overlay" style={{display: this.props.show_overlay === true ? 'block' : 'none'}}>
+          overlay
+        </div>
       </div>
     )
   }
