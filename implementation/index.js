@@ -71,6 +71,16 @@ app.post("/authenticate", (req, res) => {
   }
 })
 
+app.post("/create_entry", (req, res) => {
+  if (req.session.authenticated) {
+    console.log(req.body.header)
+    console.log(req.body.content)
+    res.json({success: true})
+  } else {
+    res.json({success: false})
+  }
+})
+
 function authenticate(username, password, callback) {
   const queryString = "CALL authenticate("+ mysql.escape(username) +","+ mysql.escape(hash(password)) +")"
   connection.query(queryString, (err, rows) => {

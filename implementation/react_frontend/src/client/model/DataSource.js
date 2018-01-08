@@ -13,6 +13,12 @@ export const changeEntry = (entryId, changes, callback) => {
   })
 }
 
+export const createEntry = (header, content, callback) => {
+  backend_post("create_entry", {header: header, content: content}, (response) => {
+    callback(response.success)
+  })
+}
+
 export const authenticate = (username, password, callback) => {
   backend_post("authenticate", {"username": username, "password": password}, (response) => {
     callback(response.success)

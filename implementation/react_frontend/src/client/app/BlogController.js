@@ -1,7 +1,7 @@
 import React from 'react'
 
 import c from '../model/Constants.js'
-import DataSource from '../model/DataSource.js'
+import { createEntry } from '../model/DataSource.js'
 import style from "../style/BlogController.scss"
 
 import Header from "./Header.js"
@@ -10,6 +10,27 @@ import ContentContainer from './ContentContainer'
 export default class BlogController extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {header: '', content: ''}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    if (event.target.name === "header") {
+      this.setState({header: event.target.value})
+    } else {
+      this.setState({content: event.target.value})
+    }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    createEntry(this.state.header, this.state.content, (response) => {
+      console.log(response)
+      if (response === true) {
+        this.props.toggle_overlay()
+      }
+    })
   }
 
   render() {
@@ -43,25 +64,31 @@ export default class BlogController extends React.Component {
         >
           <div onClick={(event) => event.stopPropagation()} className="overlay_content">
             <h1>Create entry</h1>
-            <div className="field">
-              <input
-                placeholder="# Header"
-                type="text"
-                name="header"
-              />
-            </div>
-            <div className="field">
-              <textarea
-                id="create_entry_content"
-                placeholder="Content"
-                type="text"
-                name="content"
-              />
-            </div>
-            <br/>
-            <div className="field">
-              <input type="submit" value="Submit" />
-            </div>
+            <form onSubmit={this.handleSubmit}>
+              <div className="field">
+                <input
+                  placeholder="# Header"
+                  type="text"
+                  name="header"
+                  value={this.state.header}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="field">
+                <textarea
+                  id="create_entry_content"
+                  placeholder="Content"
+                  type="text"
+                  name="content"
+                  value={this.state.content}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <br/>
+              <div className="field">
+                <input type="submit" value="Submit" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
