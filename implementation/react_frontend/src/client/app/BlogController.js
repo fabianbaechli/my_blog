@@ -36,8 +36,28 @@ export default class BlogController extends React.Component {
           </div>
         </ContentContainer>
         {this.props.children}
-        <div id="overlay" style={{display: this.props.show_overlay === true ? 'block' : 'none'}}>
-          overlay
+        <div
+          onClick={() => this.props.toggle_overlay()}
+          className="overlay"
+          style={{display: this.props.show_overlay === true ? 'block' : 'none'}}
+        >
+          <div onClick={(event) => event.stopPropagation()} className="overlay_content">
+            <h1>Create entry</h1>
+            <div className="field">
+              <input
+                placeholder="# Header"
+                type="text"
+                name="header"
+              />
+            </div>
+            <div className="field">
+              <input
+                placeholder="Content"
+                type="text"
+                name="content"
+              />
+            </div>
+          </div>
         </div>
       </div>
     )

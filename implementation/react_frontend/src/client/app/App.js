@@ -46,21 +46,27 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={() => <BlogController
-            authenticated={this.state.authenticated}
-            show_overlay={this.state.show_overlay}
-            toggle_overlay={this.toggleOverlay}>
-            {createEntryButton}
-          </BlogController>}/>
-          <Route exact path="/about" render={() => <AboutController
-            authenticated={this.state.authenticated}/>}
-          />
-          <Route
-            exact path="/admin" render = {() => <AdminController
+          <Route exact path="/" render={() =>
+            <BlogController
+              authenticated={this.state.authenticated}
+              show_overlay={this.state.show_overlay}
+              toggle_overlay={this.toggleOverlay}>
+              {createEntryButton}
+            </BlogController>
+          }/>
+
+          <Route exact path="/about" render={() =>
+            <AboutController
+              authenticated={this.state.authenticated}
+            />
+          }/>
+
+          <Route exact path="/admin" render = {() =>
+            <AdminController
               authenticated={this.state.authenticated}
               call_authenticated_change={this.handleAuthenticationChange}
-            />}
-          />
+            />
+          }/>
         </Switch>
       </BrowserRouter>
     )
