@@ -38,14 +38,20 @@
 }
 
 .overlay_content {
-  position: fixed;
-  left: 20%;
-  right: 20%;
+  position: relative;
+  padding: 20px;
   top: 10%;
-  bottom: 20%;
-  display: inherit;
+  margin-left: 20%;
+  margin-right: 20%;
+  min-width: 250px;
+  max-height: 80%;
   text-align: center;
   background-color: white;
   border-radius: 20px;
   cursor: default;
+  overflow-y: scroll;
+}
+
+#create_entry_content {
+  height: 50%;
 }

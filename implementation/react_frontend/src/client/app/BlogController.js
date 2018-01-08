@@ -51,11 +51,16 @@ export default class BlogController extends React.Component {
               />
             </div>
             <div className="field">
-              <input
+              <textarea
+                id="create_entry_content"
                 placeholder="Content"
                 type="text"
                 name="content"
               />
+            </div>
+            <br/>
+            <div className="field">
+              <input type="submit" value="Submit" />
             </div>
           </div>
         </div>

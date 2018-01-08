@@ -71,7 +71,9 @@ export default class AdminController extends React.Component {
                 />
               </div>
               <br/>
-              <input type="submit" value="Submit" />
+              <div className="field">
+                <input type="submit" value="Submit" />
+              </div>
             </form>
           </div>
         </ContentContainer>

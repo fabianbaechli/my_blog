@@ -34,3 +34,14 @@ input[type='submit'] {
 .field {
   padding: 5px;
 }
+
+textarea {
+  width: 80%;
+  font-size: 15px;
+  padding: 4px;
+  border: 2px solid #9C27B0;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: none;
+  resize: none;
+}
