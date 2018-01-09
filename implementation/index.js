@@ -18,11 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-/*
-connection.open(cn, function (err) {
-  if (err) return console.log(err);
-});
-*/
+
 connection.connect((err) => {
   if (err) throw err
 })
@@ -79,6 +75,23 @@ app.post("/create_entry", (req, res) => {
   } else {
     res.json({success: false})
   }
+})
+
+app.get("/get_entries", (req, res) => {
+  res.json({
+    entries: [
+      {
+        id: 1,
+        header: "this is a header",
+        content: "# This is a header\n\nAnd this is a paragraph"
+      },
+      {
+        id: 2,
+        header: "this is a header",
+        content: "# This is a header\n\nAnd this is a paragraph"
+      }
+    ]
+  })
 })
 
 function authenticate(username, password, callback) {

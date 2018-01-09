@@ -23,6 +23,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-dom-server": "0.0.5",
+    "react-markdown": "^3.1.4",
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",

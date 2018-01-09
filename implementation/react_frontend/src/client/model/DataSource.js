@@ -2,8 +2,8 @@ import { backend_get, backend_post } from './Utils.js'
 import c from './Constants.js'
 
 export const getEntries = (callback) => {
-  backend_get(c.backendURL + "entries", (response) => {
-    // TODO: Do the parsing to HTML here
+  backend_get("get_entries", (response) => {
+    callback(response)
   })
 }
 
