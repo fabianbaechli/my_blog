@@ -78,26 +78,23 @@ app.post("/create_entry", (req, res) => {
 })
 
 app.get("/get_entries", (req, res) => {
-  res.json({
-    entries: [
-      {
-        id: 1,
-        header: "this is a header",
-        content: "# This is a header\n\nAnd this is a paragraph"
-      },
-      {
-        id: 2,
-        header: "this is a header",
-        content: "# This is a header\n\nAnd this is a paragraph"
-      }
-    ]
+  get_entries((rows) =>  {
+    res.json({entries: rows[0]})
   })
 })
 
 function authenticate(username, password, callback) {
   const queryString = "CALL authenticate("+ mysql.escape(username) +","+ mysql.escape(hash(password)) +")"
   connection.query(queryString, (err, rows) => {
-    if (err) throw console.log(err)
+    if (err) throw err
+    else callback(rows)
+  })
+}
+
+function get_entries(callback) {
+  const queryString = "CALL get_entries()"
+  connection.query(queryString, (err, rows) => {
+    if (err) throw err
     else callback(rows)
   })
 }

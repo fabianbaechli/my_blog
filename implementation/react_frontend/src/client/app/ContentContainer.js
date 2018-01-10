@@ -10,11 +10,7 @@ export default class ContentContainer extends React.Component {
 
   render() {
     let renderContent = []
-    if (this.props.content !== undefined) {
-      this.props.content.map((entry, i) => {
-        renderContent.push(<div className="content" key={i}>{entry.content}</div>)
-      })
-    } if (this.props.children !== undefined){
+    if (this.props.children !== undefined){
       renderContent.push(this.props.children)
     }
     return <div id="content_container">{renderContent}</div>

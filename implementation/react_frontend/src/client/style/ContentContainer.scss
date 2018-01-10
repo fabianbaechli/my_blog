@@ -1,18 +1,24 @@
 @import "main.scss";
 
 #content_container {
-  width: 60%;
-  margin-right: 20%;
-  margin-left: 20%;
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
   margin-top: 20px;
+}
+
+.content_gradient_header {
+  height: 10px;
+  background: linear-gradient(to right, #22c1c3 , #fdbb2d);
 }
 
 .content {
   list-style-position: inside;
-  border-radius: 5px;
   background-color: #EEEEEE;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
 }

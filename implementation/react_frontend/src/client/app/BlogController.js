@@ -18,12 +18,31 @@ export default class BlogController extends React.Component {
 
   componentDidMount() {
     getEntries((response) => {
-      response.entries.forEach(entry => {
+      /*
+      let gradients = [
+        {background: "linear-gradient(to right, #74ebd5 , #ACB6E5);"},
+        {background: "linear-gradient(to right, #22c1c3 , #fdbb2d);",
+        {background: "linear-gradient(to right, #7F00FF , #E100FF);",
+        {background: "linear-gradient(to right, #d9a7c7 , #fffcdc);"
+      ]
+      */
+      response.entries.forEach((entry, i) => {
         let entries = this.state.entries
-        entries.push({
-          header: <ReactMarkdown source={entry.header} />,
-          content: <ReactMarkdown source={entry.content} />
-        })
+        entries.push(<div>
+          <div className="content_gradient_header" />
+          <div className="content" key={i}>
+            <div className="post_gradient_header" />
+            <div className="post_header">
+              <ReactMarkdown source={entry.header} />
+            </div>
+            <div className="post_date">
+              {entry.creation_date}
+            </div>
+            <div className="post_body">
+              <ReactMarkdown source={entry.body} />
+            </div>
+          </div>
+        </div>)
         this.setState({entries: entries})
       })
     })
@@ -55,9 +74,11 @@ export default class BlogController extends React.Component {
           underline_element = {"zero"}
           hr_width = {51.31}
         />
-        <ContentContainer
-          content = {this.state.entries}
-        />
+        <ContentContainer>
+        <div>
+          {this.state.entries}
+        </div>
+        </ContentContainer>
         {this.props.children}
         <div
           onClick={() => this.props.toggle_overlay()}
