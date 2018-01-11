@@ -9,11 +9,9 @@
 
 .content_gradient_header {
   height: 10px;
-  background: linear-gradient(to right, #22c1c3 , #fdbb2d);
 }
 
 .content {
-  list-style-position: inside;
   background-color: #EEEEEE;
   width: 100%;
   margin-bottom: 20px;
@@ -21,4 +19,18 @@
   padding-left: 20px;
   padding-bottom: 20px;
   padding-right: 20px;
+}
+
+li {
+  margin-left: 20px;
+}
+
+.post_date {
+  margin-bottom: 10px;
+  border-bottom: 1px dashed;
+}
+
+.post_header {
+  font-weight: bold;
+  font-size: 22px;
 }

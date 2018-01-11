@@ -18,19 +18,18 @@ export default class BlogController extends React.Component {
 
   componentDidMount() {
     getEntries((response) => {
-      /*
       let gradients = [
-        {background: "linear-gradient(to right, #74ebd5 , #ACB6E5);"},
-        {background: "linear-gradient(to right, #22c1c3 , #fdbb2d);",
-        {background: "linear-gradient(to right, #7F00FF , #E100FF);",
-        {background: "linear-gradient(to right, #d9a7c7 , #fffcdc);"
+        {background: 'linear-gradient(to right, #74ebd5 , #ACB6E5)'},
+        {background: 'linear-gradient(to right, #FC5C7D , #6A82FB)'},
+        {background: 'linear-gradient(to right, #904e95 , #e96443)'},
+        {background: 'linear-gradient(to right, #3a7bd5 , #3a6073)'}
       ]
-      */
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries
-        entries.push(<div>
-          <div className="content_gradient_header" />
-          <div className="content" key={i}>
+        entry.creation_date = entry.creation_date.split("T")[0]
+        entries.push(<div className="post" key={i}>
+          <div className="content_gradient_header" style={gradients[i]}/>
+          <div className="content">
             <div className="post_gradient_header" />
             <div className="post_header">
               <ReactMarkdown source={entry.header} />
