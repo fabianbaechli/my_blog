@@ -10,7 +10,7 @@ let margin
 export default class SubheaderSlider extends React.Component {
   constructor(props) {
     super(props)
-    this.setMargin = debounce(100, this.setMargin)
+    this.setMargin = debounce(50, this.setMargin)
   }
 
   setMargin() {

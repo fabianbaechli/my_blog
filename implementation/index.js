@@ -71,7 +71,14 @@ app.post("/create_entry", (req, res) => {
   if (req.session.authenticated) {
     console.log(req.body.header)
     console.log(req.body.content)
-    res.json({success: true})
+    createEntry(req.body.header, req.body.content, (rows) => {
+      console.log(rows.affectedRows)
+      if (rows.affectedRows > 0) {
+        res.json({success: true})
+      } else {
+        res.json({success: false})
+      }
+    })
   } else {
     res.json({success: false})
   }
@@ -84,7 +91,9 @@ app.get("/get_entries", (req, res) => {
 })
 
 function authenticate(username, password, callback) {
-  const queryString = "CALL authenticate("+ mysql.escape(username) +","+ mysql.escape(hash(password)) +")"
+  const queryString = "CALL authenticate(" +
+    mysql.escape(username) + "," +
+    mysql.escape(hash(password)) + ")"
   connection.query(queryString, (err, rows) => {
     if (err) throw err
     else callback(rows)
@@ -93,6 +102,16 @@ function authenticate(username, password, callback) {
 
 function get_entries(callback) {
   const queryString = "CALL get_entries()"
+  connection.query(queryString, (err, rows) => {
+    if (err) throw err
+    else callback(rows)
+  })
+}
+
+function createEntry(header, body, callback) {
+  const queryString = "CALL create_entry(" +
+    mysql.escape(header) + "," +
+    mysql.escape(body) + ")"
   connection.query(queryString, (err, rows) => {
     if (err) throw err
     else callback(rows)
