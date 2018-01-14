@@ -15,8 +15,8 @@ export default class AboutController extends React.Component {
       <div className="AboutController">
         <Header
           header_content = "About"
-          underline_element = {1}
-          hr_width = {70.41}
+          hr_width = {70.81}
+          hr_margin = {-23}
         />
         <a>About</a>
       </div>

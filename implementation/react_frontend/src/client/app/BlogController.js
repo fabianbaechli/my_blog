@@ -75,8 +75,8 @@ export default class BlogController extends React.Component {
       <div className="BlogController">
         <Header
           header_content = "My Blog"
-          underline_element = {0}
-          hr_width = {51.31}
+          hr_width = {52.36}
+          hr_margin = {-207}
         />
         <ContentContainer>
         <div>

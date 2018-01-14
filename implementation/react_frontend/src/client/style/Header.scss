@@ -40,11 +40,6 @@ a:hover {
   cursor: pointer;
 }
 
-.one:hover ~ hr {
-  margin-left: 274px;
-  width: 51.31px;
-}
-
 .two:hover ~ hr {
   margin-left: 355px;
   width: 70.41px;
@@ -57,8 +52,28 @@ a:hover {
 
 hr {
   height: .25rem;
-  margin: 0;
   background: #FF4081;
   border: none;
   transition: .3s ease-in-out;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+  left: -207px;
+  width: 52.36px;
+}
+
+a#zero.sub_content:hover ~ hr {
+  left: -207px;
+  width: 52.36px;
+}
+
+a#one.sub_content:hover ~ hr {
+  left: -23px;
+  width: 70.81px;
+}
+
+a#two.sub_content:hover ~ hr {
+  left: 182px;
+  width: 75.89px;
 }
