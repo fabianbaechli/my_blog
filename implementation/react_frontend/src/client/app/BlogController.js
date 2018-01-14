@@ -18,11 +18,16 @@ export default class BlogController extends React.Component {
 
   componentDidMount() {
     getEntries((response) => {
+      /*
       let gradients = [
-        {background: 'linear-gradient(to right, #74ebd5 , #ACB6E5)'},
         {background: 'linear-gradient(to right, #FC5C7D , #6A82FB)'},
+        {background: 'linear-gradient(to right, #3a7bd5 , #3a6073)'},
         {background: 'linear-gradient(to right, #904e95 , #e96443)'},
-        {background: 'linear-gradient(to right, #3a7bd5 , #3a6073)'}
+        {background: 'linear-gradient(to right, #74ebd5 , #ACB6E5)'}
+      ]
+      */
+      let gradients = [
+        {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'}
       ]
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries
@@ -70,7 +75,7 @@ export default class BlogController extends React.Component {
       <div className="BlogController">
         <Header
           header_content = "My Blog"
-          underline_element = {"zero"}
+          underline_element = {0}
           hr_width = {51.31}
         />
         <ContentContainer>
