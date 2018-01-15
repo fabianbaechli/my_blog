@@ -10,10 +10,15 @@ import { BrowserRouter, Switch, Route } from  'react-router-dom'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {authenticated: false, show_overlay: false}
+    this.state = {
+      authenticated: false,
+      show_create_entry_overlay: false,
+      show_change_entry_overlay: false
+    }
     this.handleAuthenticationChange = this.handleAuthenticationChange.bind(this)
     this.handleCreateEntryButton = this.handleCreateEntryButton.bind(this)
-    this.toggleOverlay = this.toggleOverlay.bind(this)
+    this.toggleCreateEntryOverlay = this.toggleCreateEntryOverlay.bind(this)
+    this.toggleChangeEntryOverlay = this.toggleChangeEntryOverlay.bind(this)
   }
 
   componentDidMount() {
@@ -34,14 +39,18 @@ export default class App extends React.Component {
     }
   }
 
-  toggleOverlay() {
-    this.setState({show_overlay: !this.state.show_overlay})
+  toggleCreateEntryOverlay() {
+    this.setState({show_create_entry_overlay: !this.state.show_create_entry_overlay})
+  }
+
+  toggleChangeEntryOverlay() {
+    this.setState({toggleChangeEntryOverlay: !toggleChangeEntryOverlay})
   }
 
   render() {
     let createEntryButton = undefined
     if (this.state.authenticated) {
-      createEntryButton = <button onClick={() => this.toggleOverlay()} id="create_button">Create Entry</button>
+      createEntryButton = <button onClick={() => this.toggleCreateEntryOverlay()} id="create_button">Create Entry</button>
     }
     return (
       <BrowserRouter>
@@ -49,8 +58,10 @@ export default class App extends React.Component {
           <Route exact path="/" render={() =>
             <BlogController
               authenticated={this.state.authenticated}
-              show_overlay={this.state.show_overlay}
-              toggle_overlay={this.toggleOverlay}>
+              show_create_entry_overlay={this.state.show_create_entry_overlay}
+              show_change_entry_overlay={this.state.show_change_entry_overlay}
+              toggle_create_entry_overlay={this.toggleCreateEntryOverlay}
+              toggle_change_entry_overlay={this.toggleChangeEntryOverlay}>
               {createEntryButton}
             </BlogController>
           }/>

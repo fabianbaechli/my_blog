@@ -12,9 +12,14 @@ import Overlay from './Overlay'
 export default class BlogController extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {header: '', content: '', entries: []}
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {
+      header: '',
+      content: '',
+      change_entry_header: '',
+      change_entry_body: '',
+      entries: []
+    }
+    this.handleCreateSubmit = this.handleCreateSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -25,23 +30,12 @@ export default class BlogController extends React.Component {
       ]
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries
-        let alterEntryButton, alterEntryPopUp = undefined
-        let showOverlay = false
+        let alterEntryButton = undefined
         if (this.props.authenticated) {
           alterEntryButton =
           <button
-            onClick={() => {showOverlay = !showOverlay}}
-            className="alter_entry_button">Alter Entry>
-          </button>
-          alterEntryPopUp =
-            <Overlay
-              title={"Change entry"}
-              header={entry.header}
-              body={entry.body}
-              toggleOverlay={showOverlay = !showOverlay}
-              show_overlay={showOverlay}
-              handleSubmit={(header, body) => console.log(header + " " + body)}
-            />
+            onClick={() => this.toggleAlterEntryOverlay(entry.header, entry.body)}
+          >Change Entry</button>
         }
         entry.creation_date = entry.creation_date.split("T")[0]
         entries.push(<div className="post" key={i}>
@@ -59,32 +53,40 @@ export default class BlogController extends React.Component {
             </div>
           </div>
           {alterEntryButton}
-          {alterEntryPopUp}
         </div>)
         this.setState({entries: entries})
       })
     })
   }
 
-  handleChange(event) {
-    if (event.target.name === "header") {
-      this.setState({header: event.target.value})
-    } else {
-      this.setState({content: event.target.value})
-    }
-  }
-
-  handleSubmit(event) {
+  handleCreateSubmit(event, header, body) {
     event.preventDefault()
-    createEntry(this.state.header, this.state.content, (response) => {
+    createEntry(header, body, (response) => {
       console.log(response)
       if (response === true) {
-        this.props.toggle_overlay()
+        this.props.toggle_create_entry_overlay()
       }
     })
   }
 
+  toggleAlterEntryOverlay(header, body) {
+    this.setState({change_entry_header: header, change_entry_body: body})
+    this.props.toggle_create_entry_overlay()
+  }
+
   render() {
+    let changeEntryOverlay = undefined
+    if (this.props.authenticated) {
+      changeEntryOverlay =
+      <Overlay
+        title={"Change Entry"}
+        header={this.state.change_entry_header}
+        body={this.state.change_entry_body}
+        toggle_overlay={this.props.toggle_create_entry_overlay}
+        show_overlay={this.props.show_create_entry_overlay}
+        handleSubmit={this.handleCreateSubmit}
+      />
+    }
     return (
       <div className="BlogController">
         <Header
@@ -93,46 +95,21 @@ export default class BlogController extends React.Component {
           hr_margin = {-207}
         />
         <ContentContainer>
-        <div>
-          {this.state.entries}
-        </div>
+          <div>
+            {this.state.entries}
+          </div>
         </ContentContainer>
         {this.props.children}
-        <div
-          onClick={() => this.props.toggle_overlay()}
-          className="overlay"
-          style={{display: this.props.show_overlay === true ? 'block' : 'none'}}
-        >
-          <div onClick={(event) => event.stopPropagation()} className="overlay_content">
-            <h1>Create entry</h1>
-            <form onSubmit={this.handleSubmit}>
-              <div className="field">
-                <input
-                  placeholder="# Header"
-                  type="text"
-                  name="header"
-                  value={this.state.header}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field">
-                <textarea
-                  id="create_entry_content"
-                  placeholder="Content"
-                  type="text"
-                  name="content"
-                  value={this.state.content}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <br/>
-              <div className="field">
-                <input type="submit" value="Submit" />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+        <Overlay
+          title={"Create Entry"}
+          header={""}
+          body={""}
+          toggle_overlay={this.props.toggle_create_entry_overlay}
+          show_overlay={this.props.show_create_entry_overlay}
+          handleSubmit={this.handleCreateSubmit}
+        />
+        {changeEntryOverlay}
+    </div>
     )
   }
 }

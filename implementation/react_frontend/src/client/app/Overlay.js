@@ -9,16 +9,21 @@ import ContentContainer from './ContentContainer'
 export default class BlogController extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {display: "none", header: this.props.header, content: this.props.body}
+    this.state = {display: "none", header: this.props.header, body: this.props.body}
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange() {
+  handleChange(event) {
     if (event.target.name === "header") {
       this.setState({header: event.target.value})
     } else {
-      this.setState({content: event.target.value})
+      this.setState({body: event.target.value})
     }
+  }
+
+  handleSubmit(event) {
+    this.props.handleSubmit(event, this.state.header, this.state.body)
   }
 
   render() {
@@ -30,14 +35,14 @@ export default class BlogController extends React.Component {
       >
         <div onClick={(event) => event.stopPropagation()} className="overlay_content">
           <h1>{this.props.title}</h1>
-          <form onSubmit={this.props.handleSubmit(this.state.header, this.state.body)}>
+          <form onSubmit={this.handleSubmit}>
             <div className="field">
               <input
                 placeholder="# Header"
                 type="text"
                 name="header"
                 value={this.state.header}
-                onChange={this.handleChange()}
+                onChange={this.handleChange}
               />
             </div>
             <div className="field">
@@ -46,8 +51,8 @@ export default class BlogController extends React.Component {
                 placeholder="## Content"
                 type="text"
                 name="content"
-                value={this.state.content}
-                onChange={this.handleChange()}
+                value={this.state.body}
+                onChange={this.handleChange}
               />
             </div>
             <br/>
