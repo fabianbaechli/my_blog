@@ -50,7 +50,12 @@ export default class App extends React.Component {
   render() {
     let createEntryButton = undefined
     if (this.state.authenticated) {
-      createEntryButton = <button onClick={() => this.toggleCreateEntryOverlay()} id="create_button">Create Entry</button>
+      createEntryButton = <button
+        onClick={() => this.toggleCreateEntryOverlay()}
+        id="create_entry_button"
+        className="material_button">
+        Create Entry
+      </button>
     }
     return (
       <BrowserRouter>

@@ -34,6 +34,7 @@ export default class BlogController extends React.Component {
         if (this.props.authenticated) {
           alterEntryButton =
           <button
+            className="material_button"
             onClick={() => this.toggleAlterEntryOverlay(entry.header, entry.body)}
           >Change Entry</button>
         }
@@ -51,8 +52,8 @@ export default class BlogController extends React.Component {
             <div className="post_body">
               <ReactMarkdown source={entry.body} />
             </div>
+            {alterEntryButton}
           </div>
-          {alterEntryButton}
         </div>)
         this.setState({entries: entries})
       })

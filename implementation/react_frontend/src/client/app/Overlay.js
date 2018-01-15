@@ -22,6 +22,11 @@ export default class BlogController extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({header: nextProps.header, body: nextProps.body})
+    console.log(this.state.header + " " + this.state.body)
+  }
+
   handleSubmit(event) {
     this.props.handleSubmit(event, this.state.header, this.state.body)
   }

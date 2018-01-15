@@ -6,22 +6,25 @@
   width: 100%;
 }
 
-#create_button {
+.material_button {
   border: none;
   outline: none;
   background-color: #FF4081;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  margin-right: 40px;
-  margin-bottom: 40px;
   padding: 5px;
   font-size: 15px;
   border-radius: 5px;
   color: white;
 }
 
-#create_button:hover{
+#create_entry_button {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin-right: 40px;
+  margin-bottom: 40px;
+}
+
+.material_button:hover{
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
