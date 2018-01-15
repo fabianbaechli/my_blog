@@ -7,6 +7,7 @@ import style from "../style/BlogController.scss"
 
 import Header from "./Header.js"
 import ContentContainer from './ContentContainer'
+import Overlay from './Overlay'
 
 export default class BlogController extends React.Component {
   constructor(props) {
@@ -18,19 +19,30 @@ export default class BlogController extends React.Component {
 
   componentDidMount() {
     getEntries((response) => {
-      /*
       let gradients = [
-        {background: 'linear-gradient(to right, #FC5C7D , #6A82FB)'},
-        {background: 'linear-gradient(to right, #3a7bd5 , #3a6073)'},
-        {background: 'linear-gradient(to right, #904e95 , #e96443)'},
-        {background: 'linear-gradient(to right, #74ebd5 , #ACB6E5)'}
-      ]
-      */
-      let gradients = [
-        {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'}
+        {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'},
+        {background: 'linear-gradient(to right, #00C9FF , #92FE9D)'}
       ]
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries
+        let alterEntryButton, alterEntryPopUp = undefined
+        let showOverlay = false
+        if (this.props.authenticated) {
+          alterEntryButton =
+          <button
+            onClick={() => {showOverlay = !showOverlay}}
+            className="alter_entry_button">Alter Entry>
+          </button>
+          alterEntryPopUp =
+            <Overlay
+              title={"Change entry"}
+              header={entry.header}
+              body={entry.body}
+              toggleOverlay={showOverlay = !showOverlay}
+              show_overlay={showOverlay}
+              handleSubmit={(header, body) => console.log(header + " " + body)}
+            />
+        }
         entry.creation_date = entry.creation_date.split("T")[0]
         entries.push(<div className="post" key={i}>
           <div className="content_gradient_header" style={gradients[i]}/>
@@ -46,6 +58,8 @@ export default class BlogController extends React.Component {
               <ReactMarkdown source={entry.body} />
             </div>
           </div>
+          {alterEntryButton}
+          {alterEntryPopUp}
         </div>)
         this.setState({entries: entries})
       })
