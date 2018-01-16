@@ -16,9 +16,6 @@ export default class App extends React.Component {
       show_change_entry_overlay: false
     }
     this.handleAuthenticationChange = this.handleAuthenticationChange.bind(this)
-    this.handleCreateEntryButton = this.handleCreateEntryButton.bind(this)
-    this.toggleCreateEntryOverlay = this.toggleCreateEntryOverlay.bind(this)
-    this.toggleChangeEntryOverlay = this.toggleChangeEntryOverlay.bind(this)
   }
 
   componentDidMount() {
@@ -31,44 +28,12 @@ export default class App extends React.Component {
     this.setState({authenticated: change})
   }
 
-  handleCreateEntryButton() {
-    if (this.state.authenticated) {
-      return <button>Create Entry</button>
-    } else {
-      return null
-    }
-  }
-
-  toggleCreateEntryOverlay() {
-    this.setState({show_create_entry_overlay: !this.state.show_create_entry_overlay})
-  }
-
-  toggleChangeEntryOverlay() {
-    this.setState({toggleChangeEntryOverlay: !toggleChangeEntryOverlay})
-  }
-
   render() {
-    let createEntryButton = undefined
-    if (this.state.authenticated) {
-      createEntryButton = <button
-        onClick={() => this.toggleCreateEntryOverlay()}
-        id="create_entry_button"
-        className="material_button">
-        Create Entry
-      </button>
-    }
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" render={() =>
-            <BlogController
-              authenticated={this.state.authenticated}
-              show_create_entry_overlay={this.state.show_create_entry_overlay}
-              show_change_entry_overlay={this.state.show_change_entry_overlay}
-              toggle_create_entry_overlay={this.toggleCreateEntryOverlay}
-              toggle_change_entry_overlay={this.toggleChangeEntryOverlay}>
-              {createEntryButton}
-            </BlogController>
+            <BlogController authenticated={this.state.authenticated} />
           }/>
 
           <Route exact path="/about" render={() =>

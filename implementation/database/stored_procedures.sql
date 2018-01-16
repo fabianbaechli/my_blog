@@ -20,7 +20,8 @@ LANGUAGE SQL
 DETERMINISTIC
 SQL SECURITY DEFINER
 BEGIN
-	SELECT header, body, creation_date FROM entries
+	SELECT id, header, body, creation_date
+	FROM entries
 	ORDER BY id DESC;
 END//
 

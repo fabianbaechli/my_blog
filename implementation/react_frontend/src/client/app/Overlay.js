@@ -9,7 +9,7 @@ import ContentContainer from './ContentContainer'
 export default class BlogController extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {display: "none", header: this.props.header, body: this.props.body}
+    this.state = {header: '', body: ''}
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -24,7 +24,6 @@ export default class BlogController extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({header: nextProps.header, body: nextProps.body})
-    console.log(this.state.header + " " + this.state.body)
   }
 
   handleSubmit(event) {

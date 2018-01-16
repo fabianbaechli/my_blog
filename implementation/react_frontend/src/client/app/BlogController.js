@@ -15,11 +15,18 @@ export default class BlogController extends React.Component {
     this.state = {
       header: '',
       content: '',
+      change_entry_id: undefined,
       change_entry_header: '',
       change_entry_body: '',
+      display_change_entry_overlay: false,
+      display_create_entry_overlay: false,
       entries: []
     }
+
     this.handleCreateSubmit = this.handleCreateSubmit.bind(this)
+    this.handleChangeSubmit = this.handleChangeSubmit.bind(this)
+    this.toggleOverlay = this.toggleOverlay.bind(this)
+    this.prepareChangeEntryOverlay = this.prepareChangeEntryOverlay.bind(this)
   }
 
   componentDidMount() {
@@ -35,7 +42,7 @@ export default class BlogController extends React.Component {
           alterEntryButton =
           <button
             className="material_button"
-            onClick={() => this.toggleAlterEntryOverlay(entry.header, entry.body)}
+            onClick={() => this.prepareChangeEntryOverlay(entry.header, entry.body, entry.id)}
           >Change Entry</button>
         }
         entry.creation_date = entry.creation_date.split("T")[0]
@@ -65,28 +72,63 @@ export default class BlogController extends React.Component {
     createEntry(header, body, (response) => {
       console.log(response)
       if (response === true) {
-        this.props.toggle_create_entry_overlay()
+        this.toggleOverlay("create")
       }
     })
   }
 
-  toggleAlterEntryOverlay(header, body) {
-    this.setState({change_entry_header: header, change_entry_body: body})
-    this.props.toggle_create_entry_overlay()
+  handleChangeSubmit(event, header, body) {
+    event.preventDefault()
+    change_entry(this.state.change_entry_id, header, body, (response) => {
+      if (response === true) {
+        this.toggleOverlay("change")
+        console.log("it works")
+      }
+    })
+  }
+
+  prepareChangeEntryOverlay(header, body, id) {
+    this.setState({
+      change_entry_header: header,
+      change_entry_body: body,
+      change_entry_id: id
+    })
+    this.toggleOverlay("change")
+  }
+
+  toggleOverlay(overlay) {
+    if (overlay === "change") {
+      this.setState({display_change_entry_overlay: !this.state.display_change_entry_overlay})
+    } else {
+      this.setState({display_create_entry_overlay: !this.state.display_create_entry_overlay})
+    }
   }
 
   render() {
-    let changeEntryOverlay = undefined
+    let changeEntryOverlay, createEntryOverlay, createEntryButton = undefined
     if (this.props.authenticated) {
-      changeEntryOverlay =
-      <Overlay
+      changeEntryOverlay = <Overlay
         title={"Change Entry"}
         header={this.state.change_entry_header}
         body={this.state.change_entry_body}
-        toggle_overlay={this.props.toggle_create_entry_overlay}
-        show_overlay={this.props.show_create_entry_overlay}
+        toggle_overlay={() => this.toggleOverlay("change")}
+        show_overlay={this.state.display_change_entry_overlay}
+        handleSubmit={this.handleChangeSubmit}
+      />
+      createEntryOverlay = <Overlay
+        title={"Create Entry"}
+        header={""}
+        body={""}
+        toggle_overlay={() => this.toggleOverlay("create")}
+        show_overlay={this.state.display_create_entry_overlay}
         handleSubmit={this.handleCreateSubmit}
       />
+      createEntryButton = <button
+        onClick={() => this.toggleOverlay("create")}
+        id="create_entry_button"
+        className="material_button">
+        Create Entry
+      </button>
     }
     return (
       <div className="BlogController">
@@ -100,16 +142,9 @@ export default class BlogController extends React.Component {
             {this.state.entries}
           </div>
         </ContentContainer>
-        {this.props.children}
-        <Overlay
-          title={"Create Entry"}
-          header={""}
-          body={""}
-          toggle_overlay={this.props.toggle_create_entry_overlay}
-          show_overlay={this.props.show_create_entry_overlay}
-          handleSubmit={this.handleCreateSubmit}
-        />
-        {changeEntryOverlay}
+      {createEntryButton}
+      {createEntryOverlay}
+      {changeEntryOverlay}
     </div>
     )
   }
