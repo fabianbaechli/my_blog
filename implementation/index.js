@@ -5,12 +5,15 @@ const bodyParser = require('body-parser')
 const mysql      = require('mysql')
 const hash       = require('sha256')
 const random     = require('randbytes')
+const crypto     = require('crypto')
 const randomSrc  = random.urandom.getInstance();
 const bigInt     = require('big-integer')
 const public_g   = bigInt(19)
 let public_n     = undefined
 let privateKey   = undefined
 let publicKey    = undefined
+let algorithm    = 'aes-256-ctr',
+  password = ""
 
 // const connection = require('odbc')(), cn = "DSN=myodbc"
 const connection = mysql.createConnection({
@@ -131,16 +134,19 @@ function createEntry(header, body, callback) {
 }
 
 function createCryptoKeys() {
-  randomSrc.getRandomBytes(400, buffer => {
+  randomSrc.getRandomBytes(500, buffer => {
     let bufferNumbers = buffer.toJSON(buffer).data
     let bufferStringRepresentation = ""
     bufferNumbers.forEach((number) => {
       bufferStringRepresentation = bufferStringRepresentation + number.toString()
     })
     public_n = bigInt(bufferStringRepresentation)
-    privateKey = bigInt.randBetween(public_n.divide(40), public_n)
+    privateKey = bigInt.randBetween(public_n.divide(4), public_n)
     publicKey = bigInt(expmod(public_g, privateKey, public_n))
     console.log("calculated crypto keys")
+    password = new Buffer(publicKey.toString())
+    var hw = encrypt("hello world")
+    console.log(decrypt(hw));
     // Efficient way of solving (base^exp) % mod
     function expmod(base, exp, mod) {
       if (exp == 0) return 1;
@@ -158,3 +164,17 @@ app.listen(8080, () => {
   createCryptoKeys()
   console.log("Server listening on port 8080")
 })
+
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
