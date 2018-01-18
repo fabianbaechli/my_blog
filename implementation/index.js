@@ -4,6 +4,14 @@ const session    = require('express-session')
 const bodyParser = require('body-parser')
 const mysql      = require('mysql')
 const hash       = require('sha256')
+const random     = require('randbytes')
+const randomSrc  = random.urandom.getInstance();
+const bigInt     = require('big-integer')
+const public_g   = bigInt(19)
+let public_n     = undefined
+let privateKey   = undefined
+let publicKey    = undefined
+
 // const connection = require('odbc')(), cn = "DSN=myodbc"
 const connection = mysql.createConnection({
   host: "localhost",
@@ -90,6 +98,10 @@ app.get("/get_entries", (req, res) => {
   })
 })
 
+app.get("/crypto_keys", (req, res) => {
+  res.json({g: public_g.toString(), n: public_n.toString(), public_key: publicKey.toString()})
+})
+
 function authenticate(username, password, callback) {
   const queryString = "CALL authenticate(" +
     mysql.escape(username) + "," +
@@ -118,6 +130,31 @@ function createEntry(header, body, callback) {
   })
 }
 
+function createCryptoKeys() {
+  randomSrc.getRandomBytes(400, buffer => {
+    let bufferNumbers = buffer.toJSON(buffer).data
+    let bufferStringRepresentation = ""
+    bufferNumbers.forEach((number) => {
+      bufferStringRepresentation = bufferStringRepresentation + number.toString()
+    })
+    public_n = bigInt(bufferStringRepresentation)
+    privateKey = bigInt.randBetween(public_n.divide(40), public_n)
+    publicKey = bigInt(expmod(public_g, privateKey, public_n))
+    console.log("calculated crypto keys")
+    // Efficient way of solving (base^exp) % mod
+    function expmod(base, exp, mod) {
+      if (exp == 0) return 1;
+      if (exp.mod(2) == 0) {
+        return bigInt(expmod(base, (exp.divide(2)), mod)).pow(2).mod(mod)
+      }
+      else {
+        return bigInt(base.multiply(expmod(base, (exp.minus(1)), mod))).mod(mod)
+      }
+    }
+  })
+}
+
 app.listen(8080, () => {
+  createCryptoKeys()
   console.log("Server listening on port 8080")
 })
