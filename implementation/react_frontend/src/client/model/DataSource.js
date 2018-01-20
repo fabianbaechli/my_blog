@@ -30,3 +30,9 @@ export const checkAuthentication = (callback) => {
     callback(response)
   })
 }
+
+export const getCryptoKeys = (callback) => {
+  backend_get("crypto_keys", (response) => {
+    callback(response)
+  })
+}

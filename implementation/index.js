@@ -6,7 +6,7 @@ const mysql      = require('mysql')
 const hash       = require('sha256')
 const random     = require('randbytes')
 const crypto     = require('crypto')
-const randomSrc  = random.urandom.getInstance();
+const randomSrc  = random.urandom.getInstance()
 const bigInt     = require('big-integer')
 const public_g   = bigInt(19)
 let public_n     = undefined
@@ -145,36 +145,35 @@ function createCryptoKeys() {
     publicKey = bigInt(expmod(public_g, privateKey, public_n))
     console.log("calculated crypto keys")
     password = new Buffer(publicKey.toString())
-    var hw = encrypt("hello world")
-    console.log(decrypt(hw));
-    // Efficient way of solving (base^exp) % mod
-    function expmod(base, exp, mod) {
-      if (exp == 0) return 1;
-      if (exp.mod(2) == 0) {
-        return bigInt(expmod(base, (exp.divide(2)), mod)).pow(2).mod(mod)
-      }
-      else {
-        return bigInt(base.multiply(expmod(base, (exp.minus(1)), mod))).mod(mod)
-      }
-    }
   })
+}
+
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm, password)
+  var crypted = cipher.update(text, 'utf8', 'hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm, password)
+  var dec = decipher.update(text, 'hex', 'utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
+// Efficient way of solving (base^exp) % mod
+function expmod(base, exp, mod) {
+  if (exp == 0) return 1;
+  if (exp.mod(2) == 0) {
+    return bigInt(expmod(base, (exp.divide(2)), mod)).pow(2).mod(mod)
+  }
+  else {
+    return bigInt(base.multiply(expmod(base, (exp.minus(1)), mod))).mod(mod)
+  }
 }
 
 app.listen(8080, () => {
   createCryptoKeys()
   console.log("Server listening on port 8080")
 })
-
-function encrypt(text){
-  var cipher = crypto.createCipher(algorithm,password)
-  var crypted = cipher.update(text,'utf8','hex')
-  crypted += cipher.final('hex');
-  return crypted;
-}
-
-function decrypt(text){
-  var decipher = crypto.createDecipher(algorithm,password)
-  var dec = decipher.update(text,'hex','utf8')
-  dec += decipher.final('utf8');
-  return dec;
-}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import c from '../model/Constants.js'
-import { authenticate } from '../model/DataSource.js'
+import { authenticate, getCryptoKeys } from '../model/DataSource.js'
 import style from "../style/AdminController.scss"
 
 import Header from "./Header"
@@ -18,6 +18,9 @@ export default class AdminController extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    getCryptoKeys((keys) => {
+      
+    })
     authenticate(this.state.username, this.state.password, (response) => {
       console.log(response)
       if (response !== this.props.authenticated) {
