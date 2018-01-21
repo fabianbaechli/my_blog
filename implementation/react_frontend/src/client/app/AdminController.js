@@ -62,8 +62,7 @@ export default class AdminController extends React.Component {
       <div className="BlogController">
         <Header
           header_content = "Admin"
-          hr_width = {75.89}
-          hr_margin = {182}
+          active_subheader = "two"
         />
         <ContentContainer>
           <div className="content">

@@ -9,6 +9,12 @@ import SubheaderSlider from './SubheaderSlider'
 export default class Header extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {active_subheader: undefined}
+  }
+
+  componentDidMount() {
+    this.setState({active_subheader: this[this.props.active_subheader]})
+    console.log(this.state.active_subheader)
   }
 
   render() {
@@ -16,12 +22,13 @@ export default class Header extends React.Component {
       <div id="header">
         <a href="/" id="header_content">{this.props.header_content}</a>
         <div id="sub_content_bar">
-          <Link id="zero" className="sub_content" to="/">Blog</Link>
-          <Link id="one" className="sub_content" to="/about">About</Link>
-          <Link id="two" className="sub_content" to="/admin">Admin</Link>
+          <Link ref={subheader => this.zero = subheader} id="zero" className="sub_content" to="/">Blog</Link>
+          <Link ref={subheader => this.one = subheader} id="one" className="sub_content" to="/about">About</Link>
+          <Link ref={subheader => this.two = subheader} id="two" className="sub_content" to="/admin">Admin</Link>
           <SubheaderSlider
             hr_width  = {this.props.hr_width}
-            hr_margin =  {this.props.hr_margin}
+            hr_margin = {this.props.hr_margin}
+            subheader = {this.state.active_subheader}
           />
         </div>
       </div>

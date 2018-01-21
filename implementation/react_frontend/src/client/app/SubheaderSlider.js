@@ -1,22 +1,49 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { debounce } from 'throttle-debounce'
+import { findDOMNode } from 'react-dom'
 
 import c from '../model/Constants.js'
 import style from "../style/Header.scss"
 let width, margin
+let mountCounter = 0
 
 export default class SubheaderSlider extends React.Component {
   constructor(props) {
     super(props)
+    this.setMargin = debounce(50, this.setMargin)
   }
-  componentDidUpdate() {
-    width = this.props.hr_width
-    margin = this.props.hr_margin
+
+  setMargin() {
+    if (findDOMNode(this.props.subheader) !== null) {
+      width = findDOMNode(this.props.subheader).offsetWidth
+      margin = findDOMNode(this.props.subheader).getBoundingClientRect().left
+      this.forceUpdate()
+      console.log(margin)
+    }
   }
+
+  componentDidMount() {
+    // the setMargin function has to be called after some time for the first time,
+    // since the getBoundingClientRect().left property of the active subheader
+    // returns a wrong value after only 50ms from the debounces' wait time
+    if (mountCounter++ === 0) {
+      setTimeout(() => {
+        this.setMargin()
+      }, 500);
+    } else {
+      this.setMargin()
+    }
+    window.addEventListener("resize", this.setMargin)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.setMargin)
+  }
+
   render() {
     return (
-      <hr style={{width: this.props.hr_width, left: this.props.hr_margin}}/>
+      <hr style={{width: width, left: margin}}/>
     )
   }
 }

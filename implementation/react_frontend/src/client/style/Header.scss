@@ -25,11 +25,6 @@
   color: white;
 }
 
-#sub_content_bar .sub_content:hover {
-  transition-duration: 0.02s;
-  transform: scale(1.02);
-}
-
 a {
   text-decoration: none;
 }
@@ -40,40 +35,11 @@ a:hover {
   cursor: pointer;
 }
 
-.two:hover ~ hr {
-  margin-left: 355px;
-  width: 70.41px;
-}
-
-.three:hover ~ hr {
-  margin-left: 455.5px;
-  width: 76.05px;
-}
-
 hr {
   height: .25rem;
   background: #FF4081;
   border: none;
   transition: .3s ease-in-out;
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
   right: 0;
-  left: -207px;
-  width: 52.36px;
-}
-
-a#zero.sub_content:hover ~ hr {
-  left: -207px;
-  width: 52.36px;
-}
-
-a#one.sub_content:hover ~ hr {
-  left: -23px;
-  width: 70.81px;
-}
-
-a#two.sub_content:hover ~ hr {
-  left: 182px;
-  width: 75.89px;
 }
