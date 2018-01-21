@@ -65,13 +65,18 @@ app.get("/authenticated", (req, res) => {
 
 app.post("/authenticate", (req, res) => {
   if (!req.session.authenticated) {
-    authenticate(req.body.username, req.body.password, (rows) => {
-      if (rows[0].length > 0) {
-        req.session.authenticated = true
-        res.json({success: true})
-      } else {
-        res.json({success: false})
-      }
+    createSharedKey(req.body.public_key, () => {
+      let username = decrypt(req.body.username)
+      let password = decrypt(req.body.password)
+      console.log(username + " " + password)
+      authenticate(username, password, (rows) => {
+        if (rows[0].length > 0) {
+          req.session.authenticated = true
+          res.json({success: true})
+        } else {
+          res.json({success: false})
+        }
+      })
     })
   } else {
     res.json({success: true})
@@ -134,7 +139,7 @@ function createEntry(header, body, callback) {
 }
 
 function createCryptoKeys() {
-  randomSrc.getRandomBytes(500, buffer => {
+  randomSrc.getRandomBytes(200, buffer => {
     let bufferNumbers = buffer.toJSON(buffer).data
     let bufferStringRepresentation = ""
     bufferNumbers.forEach((number) => {
@@ -144,22 +149,27 @@ function createCryptoKeys() {
     privateKey = bigInt.randBetween(public_n.divide(4), public_n)
     publicKey = bigInt(expmod(public_g, privateKey, public_n))
     console.log("calculated crypto keys")
-    password = new Buffer(publicKey.toString())
   })
 }
 
-function encrypt(text){
-  var cipher = crypto.createCipher(algorithm, password)
-  var crypted = cipher.update(text, 'utf8', 'hex')
-  crypted += cipher.final('hex');
-  return crypted;
+function createSharedKey(clientPublicKey, callback) {
+  let sharedKey = expmod(bigInt(clientPublicKey), privateKey, public_n)
+  password = new Buffer(sharedKey.toString())
+  callback()
 }
 
-function decrypt(text){
+function encrypt(text) {
+  var cipher = crypto.createCipher(algorithm, password)
+  var crypted = cipher.update(text, 'utf8', 'hex')
+  crypted += cipher.final('hex')
+  return crypted
+}
+
+function decrypt(text) {
   var decipher = crypto.createDecipher(algorithm, password)
   var dec = decipher.update(text, 'hex', 'utf8')
-  dec += decipher.final('utf8');
-  return dec;
+  dec += decipher.final('utf8')
+  return dec
 }
 
 // Efficient way of solving (base^exp) % mod

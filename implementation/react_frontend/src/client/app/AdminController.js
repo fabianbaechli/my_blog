@@ -1,7 +1,9 @@
 import React from 'react'
+import bigInt from 'big-integer'
 
 import c from '../model/Constants.js'
 import { authenticate, getCryptoKeys } from '../model/DataSource.js'
+import { createPrivateKey, createPublicKey, createSharedKey, encrypt } from '../model/Crypto.js'
 import style from "../style/AdminController.scss"
 
 import Header from "./Header"
@@ -19,13 +21,25 @@ export default class AdminController extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     getCryptoKeys((keys) => {
-      
-    })
-    authenticate(this.state.username, this.state.password, (response) => {
-      console.log(response)
-      if (response !== this.props.authenticated) {
-        this.props.call_authenticated_change(response)
-      }
+      createPrivateKey(keys.n, () => {
+        console.log("private key created")
+        createPublicKey(keys.n, keys.g, (publicKey) => {
+          console.log("public key created")
+          createSharedKey(keys.public_key, keys.n, (sharedKey) => {
+            console.log("shared key created")
+            let encryptedUsername = encrypt(sharedKey, this.state.username)
+            let encryptedPassword = encrypt(sharedKey, this.state.password)
+            console.log(encryptedPassword)
+            console.log(encryptedUsername)
+            authenticate(encryptedUsername, encryptedPassword, publicKey, (response) => {
+              console.log(response)
+              if (response !== this.props.authenticated) {
+                this.props.call_authenticated_change(response)
+              }
+            })
+          })
+        })
+      })
     })
   }
 

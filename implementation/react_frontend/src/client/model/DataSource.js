@@ -19,10 +19,13 @@ export const createEntry = (header, content, callback) => {
   })
 }
 
-export const authenticate = (username, password, callback) => {
-  backend_post("authenticate", {"username": username, "password": password}, (response) => {
-    callback(response.success)
-  })
+export const authenticate = (username, password, publicKey, callback) => {
+  backend_post(
+    "authenticate",
+    {"username": username, "password": password, public_key: publicKey},
+    (response) => {
+      callback(response.success)
+    })
 }
 
 export const checkAuthentication = (callback) => {
