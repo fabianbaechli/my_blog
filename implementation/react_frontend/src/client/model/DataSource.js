@@ -7,14 +7,14 @@ export const getEntries = (callback) => {
   })
 }
 
-export const changeEntry = (entryId, changes, callback) => {
-  backend_post("", {entry_id: entryId, entries_to_change : changes}, (response) => {
+export const createEntry = (header, content, callback) => {
+  backend_post("create_entry", {header: header, content: content}, (response) => {
     callback(response.success)
   })
 }
 
-export const createEntry = (header, content, callback) => {
-  backend_post("create_entry", {header: header, content: content}, (response) => {
+export const changeEntry = (entryId, header, body, callback) => {
+  backend_post("change_entry", {entry_id: entryId, header: header, body: body}, (response) => {
     callback(response.success)
   })
 }

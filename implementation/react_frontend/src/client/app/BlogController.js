@@ -2,7 +2,7 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
 import c from '../model/Constants.js'
-import { createEntry, getEntries } from '../model/DataSource.js'
+import { createEntry, changeEntry, getEntries } from '../model/DataSource.js'
 import style from "../style/BlogController.scss"
 
 import Header from "./Header.js"
@@ -72,6 +72,7 @@ export default class BlogController extends React.Component {
     createEntry(header, body, (response) => {
       console.log(response)
       if (response === true) {
+        this.setState({entries: undefined})
         this.toggleOverlay("create")
       }
     })
@@ -79,7 +80,7 @@ export default class BlogController extends React.Component {
 
   handleChangeSubmit(event, header, body) {
     event.preventDefault()
-    change_entry(this.state.change_entry_id, header, body, (response) => {
+    changeEntry(this.state.change_entry_id, header, body, (response) => {
       if (response === true) {
         this.toggleOverlay("change")
         console.log("it works")

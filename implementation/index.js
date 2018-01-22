@@ -91,6 +91,16 @@ app.post("/create_entry", (req, res) => {
   }
 })
 
+app.post("/change_entry", (req, res) => {
+  if (req.session.authenticated) {
+    connection.changeEntry(req.body.entry_id, req.body.header, req.body.body, (rows) => {
+      res.json({success: true})
+    })
+  } else {
+    res.json({success: false})
+  }
+})
+
 app.get("/get_entries", (req, res) => {
   connection.getEntries((rows) =>  {
     res.json({entries: rows[0]})

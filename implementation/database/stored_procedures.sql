@@ -38,3 +38,19 @@ BEGIN
   INSERT INTO entries (header, body, creation_date)
 	VALUES (header, body, now());
 END//
+
+/* change_entry stored procedure */
+DELIMITER //
+CREATE PROCEDURE `change_entry` (
+	id INT(11),
+	header CHAR(20),
+	body TEXT
+)
+LANGUAGE SQL
+DETERMINISTIC
+SQL SECURITY DEFINER
+BEGIN
+  UPDATE entries
+  SET header = header, body = body
+  WHERE entries.id = id;
+END//

@@ -37,4 +37,15 @@ connection.createEntry = (header, body, callback) => {
   })
 }
 
+connection.changeEntry = (entryId, header, body, callback) => {
+  const queryString = "CALL change_entry(" +
+    connection.escape(entryId) + "," +
+    connection.escape(header) + "," +
+    connection.escape(body) + ")"
+    connection.query(queryString, (err, rows) => {
+      if (err) throw err
+      else callback(rows)
+    })
+}
+
 module.exports = connection;

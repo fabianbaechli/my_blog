@@ -19,7 +19,6 @@ export default class SubheaderSlider extends React.Component {
       width = findDOMNode(this.props.subheader).offsetWidth
       margin = findDOMNode(this.props.subheader).getBoundingClientRect().left
       this.forceUpdate()
-      console.log(margin)
     }
   }
 
@@ -34,11 +33,11 @@ export default class SubheaderSlider extends React.Component {
     } else {
       this.setMargin()
     }
-    window.addEventListener("resize", this.setMargin)
+    window.addEventListener("resize", this.setMargin.bind(this))
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.setMargin)
+    window.removeEventListener("resize", this.setMargin.bind(this))
   }
 
   render() {
