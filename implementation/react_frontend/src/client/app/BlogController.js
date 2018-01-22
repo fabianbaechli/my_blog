@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import { findDOMNode } from 'react-dom'
 
 import c from '../model/Constants.js'
 import { createEntry, changeEntry, getEntries } from '../model/DataSource.js'
@@ -64,6 +65,9 @@ export default class BlogController extends React.Component {
         </div>)
         this.setState({entries: entries})
       })
+      document.querySelectorAll('pre').forEach(block => {
+        hljs.highlightBlock(block)
+      })
     })
   }
 
@@ -83,7 +87,6 @@ export default class BlogController extends React.Component {
     changeEntry(this.state.change_entry_id, header, body, (response) => {
       if (response === true) {
         this.toggleOverlay("change")
-        console.log("it works")
       }
     })
   }

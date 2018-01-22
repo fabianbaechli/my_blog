@@ -19,7 +19,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div id="header">
-        <a href="/" id="header_content">{this.props.header_content}</a>
+        <a href="/" id="header_content">My Blog</a>
         <div id="sub_content_bar">
           <Link ref={subheader => this.zero = subheader} id="zero" className="sub_content" to="/">Blog</Link>
           <Link ref={subheader => this.one = subheader} id="one" className="sub_content" to="/about">About</Link>

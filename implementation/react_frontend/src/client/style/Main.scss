@@ -28,3 +28,12 @@ $white: #FFFFFF;
   display: block;
   overflow: auto;
 }
+
+pre > code {
+  font-family: "Inconsolata", "Consolas", "Courier", monospace;
+}
+
+pre {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
