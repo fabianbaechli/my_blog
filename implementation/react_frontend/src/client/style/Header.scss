@@ -10,9 +10,9 @@
 }
 
 #header_content {
-  display: inline-block;
-  margin-top: 32px;
+  margin-top: 34px;
   color: white;
+  display: inline-block;
 }
 
 #sub_content_bar {
@@ -40,6 +40,7 @@ hr {
   background: #FF4081;
   border: none;
   transition: .3s ease-in-out;
-  position: absolute;
+  position: relative;
   right: 0;
+  width: 0;
 }

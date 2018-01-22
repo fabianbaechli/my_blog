@@ -33,7 +33,7 @@ export default class BlogController extends React.Component {
     getEntries((response) => {
       let gradients = [
         {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'},
-        {background: 'linear-gradient(to right, #00C9FF , #92FE9D)'}
+        {background: 'linear-gradient(to right, #3494E6 , #EC6EAD)'}
       ]
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries

@@ -14,7 +14,6 @@ export default class Header extends React.Component {
 
   componentDidMount() {
     this.setState({active_subheader: this[this.props.active_subheader]})
-    console.log(this.state.active_subheader)
   }
 
   render() {
