@@ -50,7 +50,9 @@ LANGUAGE SQL
 DETERMINISTIC
 SQL SECURITY DEFINER
 BEGIN
-  UPDATE entries
-  SET header = header, body = body
-  WHERE entries.id = id;
+	START TRANSACTION;
+		UPDATE entries
+		SET header = header, body = body
+		WHERE entries.id = id;
+	COMMIT;
 END//
