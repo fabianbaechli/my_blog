@@ -10,6 +10,11 @@ import Header from "./Header.js"
 import ContentContainer from './ContentContainer'
 import Overlay from './Overlay'
 
+const gradients = [
+  {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'},
+  {background: 'linear-gradient(to right, #3494E6 , #EC6EAD)'}
+]
+
 export default class BlogController extends React.Component {
   constructor(props) {
     super(props)
@@ -28,23 +33,27 @@ export default class BlogController extends React.Component {
     this.handleChangeSubmit = this.handleChangeSubmit.bind(this)
     this.toggleOverlay = this.toggleOverlay.bind(this)
     this.prepareChangeEntryOverlay = this.prepareChangeEntryOverlay.bind(this)
+    this.displayEntries = this.displayEntries.bind(this)
   }
 
   componentDidMount() {
+    this.displayEntries()
+  }
+
+  displayEntries() {
     getEntries((response) => {
-      let gradients = [
-        {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'},
-        {background: 'linear-gradient(to right, #3494E6 , #EC6EAD)'}
-      ]
       response.entries.forEach((entry, i) => {
         let entries = this.state.entries
         let alterEntryButton = undefined
         if (this.props.authenticated) {
           alterEntryButton =
-          <button
-            className="material_button"
-            onClick={() => this.prepareChangeEntryOverlay(entry.header, entry.body, entry.id)}
-          >Change Entry</button>
+          <div>
+            <br/>
+            <button
+              className="material_button"
+              onClick={() => this.prepareChangeEntryOverlay(entry.header, entry.body, entry.id)}
+            >Change Entry</button>
+          </div>
         }
         entry.creation_date = entry.creation_date.split("T")[0]
         entries.push(<div className="post" key={i}>
@@ -76,7 +85,8 @@ export default class BlogController extends React.Component {
     createEntry(header, body, (response) => {
       console.log(response)
       if (response === true) {
-        this.setState({entries: undefined})
+        this.setState({entries: []})
+        this.displayEntries()
         this.toggleOverlay("create")
       }
     })
@@ -86,6 +96,8 @@ export default class BlogController extends React.Component {
     event.preventDefault()
     changeEntry(this.state.change_entry_id, header, body, (response) => {
       if (response === true) {
+        this.setState({entries: []})
+        this.displayEntries()
         this.toggleOverlay("change")
       }
     })

@@ -42,7 +42,7 @@ export default class SubheaderSlider extends React.Component {
 
   render() {
     return (
-      <hr style={{width: width, left: margin}}/>
+      <hr className="subheader_slider" style={{width: width, left: margin}}/>
     )
   }
 }

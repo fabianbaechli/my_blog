@@ -58,3 +58,25 @@
 #create_entry_content {
   height: 50%;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 5px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  padding: 10px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead {
+  text-align: left;
+  display: table-header-group;
+}
+
+th {
+  padding-right: 30px;
+}

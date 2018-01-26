@@ -76,8 +76,6 @@ app.post("/authenticate", (req, res) => {
 
 app.post("/create_entry", (req, res) => {
   if (req.session.authenticated) {
-    console.log(req.body.header)
-    console.log(req.body.content)
     connection.createEntry(req.body.header, req.body.content, (rows) => {
       console.log(rows.affectedRows)
       if (rows.affectedRows > 0) {
