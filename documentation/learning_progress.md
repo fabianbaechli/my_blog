@@ -32,10 +32,10 @@ components into two parts: the presentational and the container components.
 
 ## The sub-header-slider problem
 The sub-header-slider caused me a big headache. It is a
-[html hr](https://developer.mozilla.org/de/docs/Web/HTML/Element/hr) element. I want to set the width
-and margin from left based on the currently viewed page. This means, that it should underline the
-`Admin` sub-header, if you're on the admin-page. Also, it should 'slide' from one position to another
-and not just 'jump'. Sounds not too bad right? No wrong! Sounds terrible!
+[html hr](https://developer.mozilla.org/de/docs/Web/HTML/Element/hr) element. I wanted to set the
+width and margin from left based on the currently viewed page. This means, that it should underline
+the `Admin` sub-header, if you're on the admin-page. Also, it should 'slide' from one position to
+another and not just 'jump'. Sounds not too bad right? No, wrong! Sounds terrible!
 
 ### Refs
 The first problem was, that when you pass the active header element as a prop, React ignores the css
@@ -50,7 +50,7 @@ property of the currently active sub-header. I then pass this value into the ren
 element as an inline style. The problem was, that the `.getBoundingClientRect().left` property of
 the currently active sub-header returned the wrong value when the page was firstly loaded. This
 means, that the slider was off by a cm or so on the first render of the page. I was pretty lost and
-didn't know how to fix this bug. So I let it slide and curiously I solved the problem unintentionally
+didn't know how to fix this bug. So I let it slide and strangely I solved the problem unintentionally
 later on, when I learned about debounce.
 
 ### Debounce
