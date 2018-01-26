@@ -3,6 +3,7 @@ import React from 'react'
 import c from '../model/Constants.js'
 import DataSource from '../model/DataSource.js'
 import style from "../style/BlogController.scss"
+import Footer from "./Footer"
 
 import Header from "./Header.js"
 
@@ -18,6 +19,7 @@ export default class AboutController extends React.Component {
           active_subheader = "one"
         />
         <a>About</a>
+        <Footer />
       </div>
     )
   }

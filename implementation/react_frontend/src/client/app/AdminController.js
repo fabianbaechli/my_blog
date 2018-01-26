@@ -8,6 +8,7 @@ import style from "../style/AdminController.scss"
 
 import Header from "./Header"
 import ContentContainer from './ContentContainer'
+import Footer from './Footer'
 
 export default class AdminController extends React.Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class AdminController extends React.Component {
       header = "not authenticated!"
     }
     return (
-      <div className="BlogController">
+      <div className="AdminController">
         <Header
           header_content = "Admin"
           active_subheader = "two"
@@ -93,6 +94,7 @@ export default class AdminController extends React.Component {
             </form>
           </div>
         </ContentContainer>
+        <Footer />
       </div>
     )
   }

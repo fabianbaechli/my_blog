@@ -9,6 +9,7 @@ import style from "../style/BlogController.scss"
 import Header from "./Header.js"
 import ContentContainer from './ContentContainer'
 import Overlay from './Overlay'
+import Footer from './Footer'
 
 const gradients = [
   {background: 'linear-gradient(to right, #9C27B0 , #FF4081)'},
@@ -160,6 +161,7 @@ export default class BlogController extends React.Component {
       {createEntryButton}
       {createEntryOverlay}
       {changeEntryOverlay}
+      <Footer />
     </div>
     )
   }
