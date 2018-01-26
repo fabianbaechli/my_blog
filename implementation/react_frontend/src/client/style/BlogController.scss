@@ -9,7 +9,7 @@
 .material_button {
   border: none;
   outline: none;
-  background-color: #009688;
+  background-color: #9C27B0;
   padding: 5px;
   font-size: 15px;
   border-radius: 5px;
@@ -17,11 +17,18 @@
 }
 
 #create_entry_button {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  margin-right: 40px;
-  margin-bottom: 40px;
+  background-color: #9c27b0;
+  border: 2px solid #9c27b0;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 4px;
+  left: auto;
+  right: auto;
+  margin-bottom: 20px;
 }
 
 .material_button:hover{

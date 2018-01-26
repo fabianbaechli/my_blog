@@ -142,8 +142,7 @@ export default class BlogController extends React.Component {
       />
       createEntryButton = <button
         onClick={() => this.toggleOverlay("create")}
-        id="create_entry_button"
-        className="material_button">
+        id="create_entry_button">
         Create Entry
       </button>
     }
