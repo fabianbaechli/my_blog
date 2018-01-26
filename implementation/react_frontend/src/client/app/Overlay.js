@@ -40,7 +40,7 @@ export default class BlogController extends React.Component {
         <div onClick={(event) => event.stopPropagation()} className="overlay_content">
           <h1>{this.props.title}</h1>
           <form onSubmit={this.handleSubmit}>
-            <div style={{"font-family": "Inconsolata"}} className="field">
+            <div className="field">
               <input
                 placeholder="# Header"
                 type="text"
@@ -49,7 +49,7 @@ export default class BlogController extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div style={{"font-family": "Inconsolata"}} className="field">
+            <div className="field">
               <textarea
                 id="create_entry_content"
                 placeholder="## Content"
