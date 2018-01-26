@@ -6,7 +6,7 @@ confusing to me. Often times, when I come into contact with new JS concepts, the
 levels of abstraction often times result in me having to wrap my head around something, which I
 understand in a lower form of abstraction in Java but not right away here.
 
-## State
+## React-State
 I learned about this, when I wanted to save the 'authenticated' state globally. This state should be
 accessible from every component. So naturally, I looked for a way, to introduce a global state in
 my app, using react. It came apparent to me, that react itself was not meant, to hold state other than
@@ -30,12 +30,47 @@ components into two parts: the presentational and the container components.
   - Usually don't have any DOM markup and no styling
 - They make API calls and provide the data via Redux calls to the presentational components
 
+## The sub-header-slider problem
+The sub-header-slider caused me a big headache. It is a
+[html hr](https://developer.mozilla.org/de/docs/Web/HTML/Element/hr) element. I want to set the width
+and margin from left based on the currently viewed page. This means, that it should underline the
+`Admin` sub-header, if you're on the admin-page. Also, it should 'slide' from one position to another
+and not just 'jump'. Sounds not too bad right? No wrong! Sounds terrible!
+
+### Refs
+The first problem was, that when you pass the active header element as a prop, React ignores the css
+transition and just _jumps_ the slider. THIS IS NOT SUPPOSED TO HAPPEN. I've nearly lost my mind
+over this, no joke. I sat at this exact problem for god knows how many hours. It would've also
+worked with using document.getElementById but this is an even bigger no-no in React than refs. So I
+ended up using them instead.
+
+### Wrong position on load
+I determined the position which the slider should have, with the `getBoundingClientRect().left`
+property of the currently active sub-header. I then pass this value into the render method of the
+element as an inline style. The problem was, that the `.getBoundingClientRect().left` property of
+the currently active sub-header returned the wrong value when the page was firstly loaded. This
+means, that the slider was off by a cm or so on the first render of the page. I was pretty lost and
+didn't know how to fix this bug. So I let it slide and curiously I solved the problem unintentionally
+later on, when I learned about debounce.
+
+### Debounce
+I wanted to re-set the position of the slider, when the page was resized. So I added an
+event-listener and when it was called, I re-set the position of the slider. This worked great but
+there was a problem: Because the resize listener gets called about a trillion times when you resize
+the browser by a hair, the performance of your website is _heavily_ compromised. Luckily this is a
+common problem people face and there is a simple solution: Debounce. Basically you say that the
+function, which does the repositioning only get's called every 50ms although the listener is fired.
+This results in a _slight_ delay between your resizing and the repositioning but this difference is
+marginal and the performance gain is huge. This also resolved my previous `wrong position on load`
+problem because the function was called 50ms after the first render function call and the DOM has
+fully loaded at that point.
+
 ## Diffie-Hellman key-exchange
-Because of _reasons_, I've implemented a diffie hellman keyexchange, to encrypt/decrypt the post
-data to "/authenticate". It would be fatal, if the username and the password were not encrypted
-because having the admin username and password enables you to alter and create entries and I don't
-have a SSH certificate at the moment. I quite like cryptography and this was nice to not just use
-a library but rather do it by hand. Here's how it works:
+Because of _reasons_, I've implemented a diffie hellman key exchange, to encrypt/decrypt the
+username and password posted to the "/authenticate" route. It would be fatal, if the username and the
+password were not encrypted because having the admin username and password enables you to alter and
+create entries and I don't have a SSH certificate at the moment. I quite like cryptography and to do
+this by hand and not by using a library was quite nice. Here's how it works:
 
 ### How it works
 The goal of the exchange is, that `party a` and `party b` end up with the same key, which they can
