@@ -154,7 +154,7 @@ function expmod(base, exp, mod) {
   }
 }
 
-app.listen(8080, '0.0.0.0', () => {
+app.listen(8080, () => {
   createCryptoKeys()
   console.log("Server listening on port 8080")
 })
