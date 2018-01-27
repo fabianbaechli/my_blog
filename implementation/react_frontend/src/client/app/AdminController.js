@@ -13,7 +13,11 @@ import Footer from './Footer'
 export default class AdminController extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {username: '', password: ''}
+    this.state = {
+      username: '',
+      password: '',
+      authentication_state: this.props.authenticated === true ? "authenticated" : "not authenticated"
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,11 +27,8 @@ export default class AdminController extends React.Component {
     event.preventDefault()
     getCryptoKeys((keys) => {
       createPrivateKey(keys.n, () => {
-        console.log("private key created")
         createPublicKey(keys.n, keys.g, (publicKey) => {
-          console.log("public key created")
           createSharedKey(keys.public_key, keys.n, (sharedKey) => {
-            console.log("shared key created")
             let encryptedUsername = encrypt(sharedKey, this.state.username)
             let encryptedPassword = encrypt(sharedKey, this.state.password)
             console.log(encryptedPassword)
@@ -53,12 +54,7 @@ export default class AdminController extends React.Component {
   }
 
   render() {
-    let header = null
-    if (this.props.authenticated) {
-      header = "authenticated"
-    } else {
-      header = "not authenticated!"
-    }
+    let header = this.state.authentication_state
     return (
       <div className="AdminController">
         <Header
