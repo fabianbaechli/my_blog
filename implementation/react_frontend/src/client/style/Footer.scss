@@ -4,11 +4,11 @@
   left: 0;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #ff4081;
+  background-color: #009688;
   color: white;
   text-align: center;
 }
 
-.AdminController > .footer {
+.AdminController > .footer, .AboutController > .footer {
   position: absolute;
 }
