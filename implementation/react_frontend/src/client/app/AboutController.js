@@ -6,6 +6,7 @@ import style from "../style/BlogController.scss"
 import Footer from "./Footer"
 
 import Header from "./Header.js"
+import ContentContainer from './ContentContainer'
 
 export default class AboutController extends React.Component {
   constructor(props) {
@@ -18,7 +19,9 @@ export default class AboutController extends React.Component {
           header_content = "About"
           active_subheader = "one"
         />
-        <a>About</a>
+      <ContentContainer>
+        <a>In progress</a>
+      </ContentContainer>
         <Footer />
       </div>
     )

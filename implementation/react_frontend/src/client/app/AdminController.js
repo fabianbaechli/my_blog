@@ -15,8 +15,7 @@ export default class AdminController extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: '',
-      authentication_state: this.props.authenticated === true ? "authenticated" : "not authenticated"
+      password: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -54,7 +53,7 @@ export default class AdminController extends React.Component {
   }
 
   render() {
-    let header = this.state.authentication_state
+    let header = this.props.authenticated === true ? "authenticated" : "not authenticated"
     return (
       <div className="AdminController">
         <Header

@@ -1,6 +1,15 @@
 # Setup
 ## Databse
 ```sql
+DROP DATABASE IF EXISTS my_blog;
+CREATE DATABASE my_blog;
+USE my_blog;
+
+GRANT USAGE ON *.* TO 'fabian'@'localhost';
+DROP USER 'fabian'@'localhost';
+GRANT USAGE ON *.* TO 'fabian'@'%';
+DROP USER 'fabian'@'%';
+
 CREATE USER 'fabian'@'localhost' IDENTIFIED BY 'abc123';
 GRANT ALL PRIVILEGES ON *.* TO 'fabian'@'localhost'
 	WITH GRANT OPTION;
@@ -95,5 +104,5 @@ VALUES
 ```bash
 cd my_blog/implementation
 docker build -t fabianbaechli/my_blog .
-docker run --add-host=host:<ip adresse (e.g.: 192.168.1.192)> -p 8080:8080 -d fabianbaechli/my_blog
+docker run --add-host=host_addr:<your ip address (e.g.: 192.168.1.102)> -p 8080:8080 -d fabianbaechli/my_blog
 ```

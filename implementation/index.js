@@ -8,7 +8,7 @@ const crypto     = require('crypto')
 const randomSrc  = random.urandom.getInstance()
 const bigInt     = require('big-integer')
 const public_g   = bigInt(19)
-const keySize    = 250
+const keySize    = 120
 let public_n     = undefined
 let privateKey   = undefined
 let publicKey    = undefined
@@ -22,7 +22,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 connection.connect((err) => {
-  if (err) throw err
+  if (err) {
+    throw err
+  } else {
+    // queries the database every five seconds to ensure, that the connection is not lost
+    setInterval(function () {
+      connection.query('SELECT 1');
+    }, 5000);
+  }
 })
 
 app.use(session({
