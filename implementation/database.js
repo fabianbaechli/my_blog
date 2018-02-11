@@ -2,7 +2,7 @@ const mysql = require('mysql')
 const hash  = require('sha256')
 
 const connection = mysql.createConnection({
-  host: "host_addr",
+  host: "localhost",
   port: "3306",
   user: "fabian",
   password: "abc123",
